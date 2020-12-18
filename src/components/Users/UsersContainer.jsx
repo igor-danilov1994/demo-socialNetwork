@@ -1,13 +1,13 @@
 import React from "react";
 import {connect} from "react-redux";
 import Users from "./Users";
-import Preloader from "../Preloader/Preloader";
+import Preloader from "../Common/Preloader/Preloader";
 import {
-    followSuccess, requestUsers,
+    follow,
+    requestUsers,
     setCurrentPage,
     setTotalUsersCount,
-    toggleFollowingProgress,
-    unfollowSuccess
+    toggleFollowingProgress, unfollow,
 } from "../../redux/usersReducer";
 import {withAuthRedirect} from "../../HOC/withAuthRedirect";
 import {compose} from "redux";
@@ -29,6 +29,7 @@ class UsersComponent extends React.Component {
     }
 
     render() {
+
         return <>
             {this.props.isFetching ?
                 <Preloader/> : null}
@@ -38,10 +39,11 @@ class UsersComponent extends React.Component {
                 currentPage={this.props.currentPage}
                 onPageChanged={this.onPageChanged}
                 users={this.props.users}
-                follow={this.props.followSuccess}
-                unfollow={this.props.unfollowSuccess}
+                follow={this.props.follow}
+                unfollow={this.props.unfollow}
                 followingInProgress={this.props.followingInProgress}
                 isAuth={this.props.isAuth}
+
             />
         </>
     }
@@ -50,6 +52,7 @@ class UsersComponent extends React.Component {
 }
 
 let mapStateToProps = (state) => {
+
     return {
         users: getUsers(state),
         pageSize: getPageSize(state),
@@ -64,7 +67,9 @@ let mapStateToProps = (state) => {
 export default compose(
     withAuthRedirect,
     connect(mapStateToProps,
-        {followSuccess, unfollowSuccess, setCurrentPage, setTotalUsersCount, toggleFollowingProgress, getUsers: requestUsers}),
+        {follow, unfollow, setCurrentPage,
+            setTotalUsersCount, toggleFollowingProgress,
+            getUsers: requestUsers}),
 )(UsersComponent);
 
 

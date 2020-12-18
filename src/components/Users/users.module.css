@@ -8,11 +8,10 @@
 }
 .pagination{
     display: flex;
-    //justify-content: center;
+    justify-content: center;
     align-items: center;
-    list-style: none;
 }
-.pagination li {
+.pagination span {
     background-color: green;
     color: #fff;
     padding: 5px 10px;
@@ -20,6 +19,27 @@
     margin-right: 10px;
     cursor: pointer;
 }
-.pagination li:hover{
+.pagination span:hover{
         color: red
 }
+.userItem {
+    display: flex;
+    margin-top: 10px;
+    width: 300px;
+}
+.userAvatar {
+
+}
+.userInfo {
+    margin-left: 10px;
+}
+.userFollowToggle {
+
+}
+
+.totalUser {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+

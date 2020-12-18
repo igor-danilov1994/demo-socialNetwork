@@ -2,9 +2,9 @@ import React from 'react';
 import s from './MyPosts.module.css';
 import Post from "./Post/Post";
 import {Field, reduxForm} from "redux-form";
-import {Textarea} from "../../FormsControl/FormsControl";
+import {Textarea} from "../../Common/FormsControl/FormsControl";
 
-const MyPosts = (props) => {
+const MyPosts = React.memo(props => {
     let postElements = props.posts
         .map(p => <Post message={p.massage} likesCount={p.likesCount}/>);
 
@@ -21,8 +21,7 @@ const MyPosts = (props) => {
             </div>
         </div>
     )
-}
-
+});
 
 const AddNewPostForm = (props) => {
     return (
@@ -30,7 +29,6 @@ const AddNewPostForm = (props) => {
             <div>
                 <Field
                     component={Textarea} name={"newPostText"}
-
                 />
             </div>
             <div>

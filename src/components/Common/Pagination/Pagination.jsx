@@ -1,10 +1,10 @@
-import React from "react";
-import styles from "../Users/users.module.css";
-import Redirect from "react-router-dom";
+import React, {useState} from "react";
+import styles from "../../Users/users.module.css";
+import {Redirect} from "react-router-dom";
 
 
-let Pagination = (props) => {
-    let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
+let Pagination = ({currentPage, totalItemsCount, pageSize, onPageChanged, isAuth, portionSize}) => {
+    let pagesCount = Math.ceil(totalItemsCount / pageSize);
 
     let pages = [];
 
@@ -12,24 +12,41 @@ let Pagination = (props) => {
         pages.push(i);
     }
 
-    if (!props.isAuth) {
+    let portionCount = Math.ceil(pagesCount / portionSize);
+    let [portionNumber, setPortionNumber] = useState(1);
+    let leftPortionPageNumber = (portionNumber - 1) * portionSize + 1;
+    let rightPortionPageNumber = portionNumber * portionSize;
+
+    if (!isAuth) {
         return <Redirect to={"/Login"}/>;
     }
 
     return (
-        <div>
-            <ul className={styles.pagination}>
-                {pages.map(p => {
-                    return (
-                        <li className={props.currentPage === p && styles.selectedPage}
-                            onClick={(e) => {
-                                props.onPageChanged(p)
-                            }}>{p}</li>
-                    )
+        <div className={styles.pagination}>
+            {portionNumber > 1 &&
+            <button onClick={() => {
+                setPortionNumber(portionNumber - 1)
+            }}> PREV </button>
+            }
+            {pages
+                .filter(p => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
+                .map((p) => {
+                    return <span key={p}
+                                 onClick={(e) => {
+                                     onPageChanged(p)
+                                 }}>
+                        {p}
+                    </span>
                 })}
-            </ul>
-            </div>
 
+            {portionCount > portionNumber &&
+                <button onClick={() => {
+                    setPortionNumber(portionNumber + 1)
+                }}> NEXT </button>
+            }
+        </div>
     )
 }
 export default Pagination;
+
+

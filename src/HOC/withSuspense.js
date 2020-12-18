@@ -1,25 +1,13 @@
-import React from "react";
-import {Redirect} from "react-router-dom";
-import {connect} from "react-redux";
+import React, {Suspense} from "react";
+import Preloader from "../components/Common/Preloader/Preloader";
 
-let mapStateToPropForRedirect = (state) => ({
-    isAuth: state.auth.isAuth,
-});
 
-export const withAuthRedirect = (Component) => {
-
-    class RedirectComponent extends React.Component {
-        render() {
-            if (!this.props.isAuth) {
-                return <Redirect to={"/Login"}/>
-            }
-            return (
-                <Component {...this.props} />
-            )
-        }
+export const withSuspense = (Component) => {
+    return (...props) => {
+        return (
+            <Suspense fallback={<Preloader/>}>
+                <Component {...props} />
+            </Suspense>
+        )
     }
-
-
-    let ConnectedAuthRedirectComponent = connect(mapStateToPropForRedirect)(RedirectComponent);
-    return ConnectedAuthRedirectComponent;
 }

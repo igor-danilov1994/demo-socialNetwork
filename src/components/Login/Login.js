@@ -1,15 +1,16 @@
 import React from "react";
 import {Field, reduxForm} from "redux-form";
-import {Input} from "../FormsControl/FormsControl";
+import {Input} from "../Common/FormsControl/FormsControl";
 import {maxlengthCreator, required} from "../../utils/validators/validation";
 import {connect} from "react-redux";
 import {Redirect} from "react-router-dom";
-import style from "../FormsControl/FormControls.module.css"
+import style from "../Common/FormsControl/FormControls.module.css"
 import {login} from "../../redux/authReducer";
 
-const LoginForm = (props) => {
+const LoginForm = ({handleSubmit, error}) => {
+
     return (
-        <form onSubmit={props.handleSubmit} action="">
+        <form onSubmit={handleSubmit}>
             <div>
                 <Field name={"email"} placeholder={"Email"} component={Input} validate={[required, maxLength30]}/>
             </div>
@@ -17,12 +18,16 @@ const LoginForm = (props) => {
                 <Field name={"password"} placeholder={"Password"} component={Input} validate={[required, maxLength30]}/>
             </div>
             <div className={style.check}>
-                <Field name={"rememberMe"} type={"checkbox"} component={Input} validate={required}/> remember me
+                <Field type={"checkbox"} name={"name"} placeholder={"placeholder"} component={Input} validate={[required, maxLength30]}/>
+                remember Me
             </div>
-            {props.error &&
-                <div className={style.formSummaryError}>
-                    {props.error}
-                </div> }
+            {/* {createField("email", "Email", {Input}, [required, maxLength30])}*/}
+            {/*{createField("password", "Password", {Input}, [required, maxLength30])}*/}
+            {/* {createField("rememberMe", null, {Input}, [required, maxLength30], {type: "checkbox"}, "remember me")}*/}
+            {error &&
+            <div className={style.formSummaryError}>
+                {error}
+            </div>}
             <div>
                 <button>Log In</button>
             </div>
@@ -39,7 +44,6 @@ const Login = (props) => {
     }
     if (props.isAuth) {
         return <Redirect to={"/profile/"}/>
-
     }
 
     return (
