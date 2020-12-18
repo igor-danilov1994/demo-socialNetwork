@@ -1,0 +1,25 @@
+
+.dialogs {
+    display: flex;
+    justify-content: space-around;
+}
+.dialogsItems {
+    display: flex;
+    flex-direction: column;
+}
+.dialog img {
+    border-radius: 50%;
+    width: 30px;
+    margin-right: 10px;
+}
+.dialog {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+.messages {
+
+}
+.addedPost {
+    margin-top: 20px;
+}

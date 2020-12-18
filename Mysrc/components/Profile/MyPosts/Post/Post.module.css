@@ -1,0 +1,14 @@
+.content {
+   grid-area: c;
+}
+
+.content img {
+    width: 50%;
+    height: 200px;
+}
+.item img {
+    width: 30px;
+}
+.item button {
+    cursor: pointer;
+}
