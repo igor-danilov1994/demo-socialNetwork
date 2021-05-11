@@ -3,7 +3,7 @@ import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import MyPostsContainer from "./MyPosts/MyPostsContaner";
 
 
-const Profile = (props) => {
+export const Profile = (props) => {
     return (
         <div>
             <ProfileInfo
@@ -16,4 +16,4 @@ const Profile = (props) => {
     )
 };
 
-export default Profile;
+

@@ -1,11 +1,12 @@
-import profileReducer, {addNewPostTextActionCreator} from "./profileReducer";
-import React from 'react';
+import profileReducer, {addNewPostTextActionCreator} from "./profileReducerе";
 
 test('new post should be added', () => {
-    // 1 Test data
-    let action = addNewPostTextActionCreator("it-incubator.com")
 
-    let state = {
+
+
+    const action = addNewPostTextActionCreator("it-incubator.com")
+
+    const initState = {
         posts: [
             {id: "1", massage: "How are you", likesCount: 2},
             {id: "2", massage: "It my first post", likesCount: 23},
@@ -13,10 +14,9 @@ test('new post should be added', () => {
             {id: "4", massage: "It my first post", likesCount: 23},
         ]
     };
-//2 action
-    let newState = profileReducer({state}, {action})
 
-    //3 expectation
+    const newState = profileReducer({state: initState}, {action})
+
     expect(newState.posts.length).toBe(5);
 
 });

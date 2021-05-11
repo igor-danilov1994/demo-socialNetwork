@@ -1,8 +1,13 @@
-/*
+import React, {ChangeEvent} from "react";
+import {AppStateType} from "../../redux/redux-store";
 
-import React from "react";
+type ProfileStatusPropsType = {
+    status: string
 
-class ProfileStatus extends React.Component {
+    updateStatus: (status: string) => void
+}
+
+export class ProfileStatus extends React.Component<ProfileStatusPropsType> {
     state = {
         editMode: false,
         status: this.props.status,
@@ -19,14 +24,14 @@ class ProfileStatus extends React.Component {
         })
         this.props.updateStatus(this.state.status);
     }
-    onStatusChange = (e) => {
+    onStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
         this.setState({
             status: e.currentTarget.value
         });
     }
 
-    componentDidUpdate(prevProps, prevsState) {
-if (prevProps.status !== this.props.status) {
+    componentDidUpdate(prevProps: ProfileStatusPropsType, prevState: AppStateType ) {
+        if (prevProps.status !== this.props.status) {
             this.setState({
                 status: this.props.status
             });
@@ -38,26 +43,23 @@ if (prevProps.status !== this.props.status) {
         return (
             <div>
                 {!this.state.editMode &&
-                    <div>
+                <div>
                         <span onDoubleClick={this.activateEditMode}>
                             {this.props.status}
                         </span>
-                    </div>
+                </div>
                 }
 
                 {this.state.editMode &&
-                    <div>
-                        <input
-                            onChange={this.onStatusChange} autoFocus={true} value={this.state.status}
-                            onBlur={this.deActivateEditMode}
-                        />
-                    </div>
+                <div>
+                    <input
+                        onChange={this.onStatusChange} autoFocus={true} value={this.state.status}
+                        onBlur={this.deActivateEditMode}
+                    />
+                </div>
                 }
             </div>
         )
     }
 }
 
-
-export default ProfileStatus;
-*/
