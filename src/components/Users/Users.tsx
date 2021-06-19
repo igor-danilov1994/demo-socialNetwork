@@ -1,8 +1,8 @@
 import React from "react";
 import {Pagination} from "../Common/Pagination/Pagination";
-import User from "./User";
 import styles from "./users.module.css";
 import {UserType} from "../../typs/typs";
+import {User} from "./User";
 
 type UsersPropsType = {
     currentPage: number
@@ -26,7 +26,7 @@ export const Users: React.FC<UsersPropsType> = ({
                                                     followingInProgress,
                                                     unfollow,
                                                     follow
-                                                 }) => {
+                                                }): JSX.Element => {
 
     return (
         <div>

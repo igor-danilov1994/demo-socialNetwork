@@ -27,6 +27,4 @@ export type AppStateType = ReturnType<RootReducersType>
 
 // @ts-ignore
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(rootReducers, /* preloadedState, */ composeEnhancers(compose(applyMiddleware(thunkMiddleware))));
-
-export default store;
+export const store = createStore(rootReducers, /* preloadedState, */ composeEnhancers(compose(applyMiddleware(thunkMiddleware))));

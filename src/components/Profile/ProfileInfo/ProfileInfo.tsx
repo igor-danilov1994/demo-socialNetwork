@@ -1,15 +1,19 @@
 import React from 'react';
 import Preloader from "../../Common/Preloader/Preloader";
-import ProfileStatusWithHooks from "../ProfileStatusWithHooks";
+import {ProfileStatusWithHooks} from "../ProfileStatusWithHooks";
+import {ProfilePropsType} from "../profile";
 
-let ProfileInfo = ({profile, status, updateStatus}) => {
+type ProfileInfoPropsType = ProfilePropsType
+
+export const ProfileInfo: React.FC<ProfileInfoPropsType> = ({profile, status, updateStatus}) => {
     if (!profile) {
         return <Preloader/>
     }
     return (
         <div>
             <div>
-                <img src={profile.photos.large} alt="photos"/>
+                <img src={profile.photos.large!} alt="photos"/>
+
                 <ProfileStatusWithHooks
                     status={status}
                     updateStatus={updateStatus}
@@ -17,7 +21,4 @@ let ProfileInfo = ({profile, status, updateStatus}) => {
             </div>
         </div>
     )
-};
-
-
-export default ProfileInfo;
+}

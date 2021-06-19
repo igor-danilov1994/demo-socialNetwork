@@ -20,6 +20,8 @@ export const Pagination: React.FC<PaginationPropsType> = ({
                                                               isAuth,
                                                               portionSize
                                                           }) => {
+    const [portionNumber, setPortionNumber] = useState(1);
+
     const pagesCount = Math.ceil(totalItemsCount / pageSize);
 
     const pages = [];
@@ -29,7 +31,6 @@ export const Pagination: React.FC<PaginationPropsType> = ({
     }
 
     const portionCount = Math.ceil(pagesCount / portionSize);
-    const [portionNumber, setPortionNumber] = useState(1);
     const leftPortionPageNumber = (portionNumber - 1) * portionSize + 1;
     const rightPortionPageNumber = portionNumber * portionSize;
 
