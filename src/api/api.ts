@@ -1,5 +1,4 @@
-import * as axios from "axios";
-
+import axios from "axios";
 
 const instance = axios.create({
     withCredentials: true,
@@ -18,36 +17,46 @@ export const usersAPI = {
                 })
         )
     },
-    follow(userId) {
+    follow(userId: number) {
         return instance.post(`follow/${userId}`)
     },
-    unfollow(userId) {
+    unfollow(userId: number) {
         return instance.delete(`follow/${userId}`)
     },
-    getProfile(userId) {
+    getProfile(userId: number) {
         console.log("Этот метод устарел");
         return profileAPI.getProfile(userId);
     },
 };
 
 export const profileAPI = {
-    getProfile(userId) {
-        return instance.get(`profile/` + userId);
+    getProfile(userId: number) {
+        return instance.get(`profile/` + userId)
     },
-    getStatus(userId) {
+    getStatus(userId: number) {
         return instance.get(`profile/status/` + userId);
     },
-    updateStatus(status) {
+    updateStatus(status: number) {
         return instance.put(`profile/status/`, {status: status});
     },
 };
 
+type MeResponseType = {
+    data: {
+        id: number
+        email: string
+        login: string
+    }
+    resultCode: number
+    messages: string[]
+}
+
 export const authAPI = {
     me() {
-        return instance.get(`auth/me/`);
+        return instance.get<MeResponseType>(`auth/me/`).then(response => response.data)
     },
-    login(email, password, rememberMe = false) {
-        return instance.post(`auth/login`, { email, password, rememberMe });
+    login(email: string, password: string, rememberMe = false) {
+        return instance.post(`auth/login`, {email, password, rememberMe});
     },
     logout() {
         return instance.delete(`auth/login`);
