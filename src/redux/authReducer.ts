@@ -1,5 +1,5 @@
 import {stopSubmit} from "redux-form";
-import {authAPI} from "../api/api";
+import {authAPI, ResultCodeEnum} from "../api/api";
 
 const SET_USER_DATA = "samurai/auth/SET_USER_DATA";
 
@@ -45,8 +45,8 @@ export const setAuthUserData = (email: string | null, userId: number | null,
 );
 
 export const getAuthUserData = () => async (dispatch: any) => {
-    let meData = await authAPI.me();
-    if (meData.resultCode === 0) {
+    const meData = await authAPI.me();
+    if (meData.resultCode === ResultCodeEnum.Success ) {
         let {email, id, login,} = meData.data;
         dispatch(setAuthUserData(email, id, login, true));
     }
@@ -54,12 +54,11 @@ export const getAuthUserData = () => async (dispatch: any) => {
 };
 
 export const login = (email: string, password: string, rememberMe: boolean) => async (dispatch: any) => {
-    let response = await authAPI.login(email, password, rememberMe)
-    if (response.data.resultCode === 0) {
+    const loginData = await authAPI.login(email, password, rememberMe)
+    if (loginData.resultCode === ResultCodeEnum.Success) {
         dispatch(getAuthUserData());
     } else {
-        const messages = response.data.messages.length > 0 ? response.data.messages[0] : "Some error"
-        console.log(messages)
+        const messages = loginData.messages.length > 0 ? loginData.messages[0] : "Some error"
         dispatch(stopSubmit("login", {_error: messages}))
     }
 

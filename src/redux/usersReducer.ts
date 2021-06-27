@@ -1,6 +1,6 @@
-import {usersAPI as usersApi, usersAPI} from "../api/api";
+import {ResultCodeEnum, usersAPI as usersApi, usersAPI} from "../api/api";
 import {updateObjectInArray} from "../utils/object-helper";
-import {PhotosType, UserType} from "../typs/typs";
+import {UserType} from "../typs/typs";
 import {Dispatch} from "redux";
 import {AppStateType} from "./redux-store";
 import {ThunkAction} from "redux-thunk";
@@ -154,7 +154,7 @@ export const requestUsers = (currentPage: number, pageSize: number): ThunkType =
 const _followUnfollowFlow = async (dispatch: DispatchType, userId: number, apiMethod: any, actionCreator: (userId: number) => FollowSuccessActionType | UnfollowSuccessActionsType ) => {
     dispatch(toggleFollowingProgress(true, userId))
     const response = await apiMethod(userId);
-    if (response.data.resultCode === 0) {
+    if (response.data.resultCode === ResultCodeEnum.Success) {
         dispatch(actionCreator(userId));
     }
     dispatch(toggleFollowingProgress(false, userId));

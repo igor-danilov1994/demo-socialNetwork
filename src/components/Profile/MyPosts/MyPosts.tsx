@@ -1,15 +1,22 @@
 import React from 'react';
 import s from './MyPosts.module.css';
 import Post from "./Post/Post";
-import {Field, reduxForm} from "redux-form";
+import {Field, reduxForm, SubmitHandler} from "redux-form";
 import {Textarea} from "../../Common/FormsControl/FormsControl";
+import {PostType} from "../../../typs/typs";
 
-const MyPosts = React.memo(props => {
-    let postElements = props.posts
+type MyPostsPropsType = {
+    posts: PostType[];
+    addPost: (text: string) => void
+}
+
+const MyPosts: React.FC<MyPostsPropsType> = React.memo(({posts, addPost,}): JSX.Element => {
+    let postElements = posts
         .map(p => <Post message={p.massage} likesCount={p.likesCount}/>);
 
-    const onAddPost = (values) => {
-        props.addPost(values.newPostText);
+    const onAddPost = (values: any): void => {
+        debugger
+        addPost(values.newPostText);
     }
 
     return (
@@ -23,9 +30,13 @@ const MyPosts = React.memo(props => {
     )
 });
 
-const AddNewPostForm = (props) => {
+type AddNewPostFormPropsType = {
+    handleSubmit: (event: any) => void
+}
+
+const AddNewPostForm: React.FC<AddNewPostFormPropsType> = ({handleSubmit,}) => {
     return (
-        <form onSubmit={props.handleSubmit}>
+        <form onSubmit={handleSubmit}>
             <div>
                 <Field
                     component={Textarea} name={"newPostText"}

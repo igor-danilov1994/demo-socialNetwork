@@ -36,10 +36,16 @@ export const profileAPI = {
     getStatus(userId: number) {
         return instance.get(`profile/status/` + userId);
     },
-    updateStatus(status: number) {
+    updateStatus(status: string) {
         return instance.put(`profile/status/`, {status: status});
     },
 };
+
+export enum ResultCodeEnum {
+    Success = 0,
+    Error = 1,
+    CaptchaIsRequired = 10,
+}
 
 type MeResponseType = {
     data: {
@@ -47,7 +53,14 @@ type MeResponseType = {
         email: string
         login: string
     }
-    resultCode: number
+    resultCode: ResultCodeEnum
+    messages: string[]
+}
+type LoginResponseType = {
+    data: {
+        userId: number
+    }
+    resultCode: ResultCodeEnum
     messages: string[]
 }
 
@@ -56,7 +69,11 @@ export const authAPI = {
         return instance.get<MeResponseType>(`auth/me/`).then(response => response.data)
     },
     login(email: string, password: string, rememberMe = false) {
-        return instance.post(`auth/login`, {email, password, rememberMe});
+        return instance.post<LoginResponseType>(`auth/login`, {
+            email,
+            password,
+            rememberMe
+        }).then(response => response.data);
     },
     logout() {
         return instance.delete(`auth/login`);

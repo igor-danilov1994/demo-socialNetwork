@@ -1,8 +1,5 @@
-import {profileAPI, usersAPI} from "../api/api";
-import {ContactsType} from '../typs/typs'
-import {PhotosType} from '../typs/typs'
-import {ProfileType} from '../typs/typs'
-import {PostType} from '../typs/typs'
+import {profileAPI, ResultCodeEnum, usersAPI} from "../api/api";
+import {PostType, ProfileType} from '../typs/typs'
 
 
 const ADD_POST = "ADD-POST";
@@ -15,7 +12,7 @@ const initState = {
     posts: [
         {id: 1, massage: "How are you", likesCount: 2},
         {id: 2, massage: "It my first post", likesCount: 23},
-    ] as Array<PostType>,
+    ] as PostType[],
     profile: null as ProfileType | null,
     newPostText: '',
     status: "",
@@ -86,7 +83,7 @@ export const getStatus = (userId: number) => async (dispatch: any) => {
 
 export const updateStatus = (status: string) => async (dispatch: any) => {
     let response = await profileAPI.updateStatus(status)
-    if (response.data.resultCode === 0) {
+    if (response.data.resultCode === ResultCodeEnum.Success) {
         dispatch(setStatus(status));
     }
 }

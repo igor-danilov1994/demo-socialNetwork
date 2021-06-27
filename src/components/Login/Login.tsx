@@ -1,13 +1,17 @@
 import React from "react";
-import {Field, reduxForm} from "redux-form";
+import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {Input} from "../Common/FormsControl/FormsControl";
 import {maxlengthCreator, required} from "../../utils/validators/validation";
 import {connect} from "react-redux";
 import {Redirect} from "react-router-dom";
 import style from "../Common/FormsControl/FormControls.module.css"
 import {login} from "../../redux/authReducer";
+import {AppStateType} from "../../redux/redux-store";
 
-const LoginForm = ({handleSubmit, error}) => {
+const LoginForm: React.FC<InjectedFormProps<LoginFormValuesType, LoginFormOwnPropsType> & LoginFormOwnPropsType> = ({
+                                                                                                                handleSubmit,
+                                                                                                                error
+                                                                                                            }): JSX.Element => {
 
     return (
         <form onSubmit={handleSubmit}>
@@ -18,7 +22,8 @@ const LoginForm = ({handleSubmit, error}) => {
                 <Field name={"password"} placeholder={"Password"} component={Input} validate={[required, maxLength30]}/>
             </div>
             <div className={style.check}>
-                <Field type={"checkbox"} name={"name"} placeholder={"placeholder"} component={Input} validate={[required, maxLength30]}/>
+                <Field type={"checkbox"} name={"name"} placeholder={"placeholder"} component={Input}
+                       validate={[required, maxLength30]}/>
                 remember Me
             </div>
             {/* {createField("email", "Email", {Input}, [required, maxLength30])}*/}
@@ -37,9 +42,27 @@ const LoginForm = ({handleSubmit, error}) => {
 
 const maxLength30 = maxlengthCreator(30);
 
+type LoginFormValuesType = {
+    email: string,
+    password: string,
+    rememberMe: boolean
+    isAuth: boolean,
+}
 
-const Login = (props) => {
-    const onSubmit = (formData) => {
+type LoginPropsType = {
+    login: (email: string, password: string, rememberMe: boolean) => void
+    isAuth: boolean,
+}
+
+type LoginFormOwnPropsType = {
+    isAuth: boolean,
+}
+
+const LoginReduxForm = reduxForm<LoginFormValuesType, LoginFormOwnPropsType>({form: 'login'})(LoginForm);
+
+const Login: React.FC<LoginPropsType> = (props): JSX.Element => {
+
+    const onSubmitForm = (formData: LoginFormValuesType) => {
         props.login(formData.email, formData.password, formData.rememberMe);
     }
     if (props.isAuth) {
@@ -49,15 +72,16 @@ const Login = (props) => {
     return (
         <div>
             <h1>Login</h1>
-            <LoginReduxForm onSubmit={onSubmit}/>
+            <LoginReduxForm isAuth={props.isAuth} onSubmit={onSubmitForm}/>
         </div>
     )
 }
 
+type MapStateToProps = {
+    isAuth: boolean
+}
 
-const LoginReduxForm = reduxForm({form: 'login'})(LoginForm);
-
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: AppStateType): MapStateToProps => ({
     isAuth: state.auth.isAuth
 })
 
