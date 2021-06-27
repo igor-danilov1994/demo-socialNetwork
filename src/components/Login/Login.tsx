@@ -1,6 +1,6 @@
 import React from "react";
-import {Field, InjectedFormProps, reduxForm} from "redux-form";
-import {Input} from "../Common/FormsControl/FormsControl";
+import {InjectedFormProps, reduxForm} from "redux-form";
+import {createField, Input} from "../Common/FormsControl/FormsControl";
 import {maxlengthCreator, required} from "../../utils/validators/validation";
 import {connect} from "react-redux";
 import {Redirect} from "react-router-dom";
@@ -9,30 +9,21 @@ import {login} from "../../redux/authReducer";
 import {AppStateType} from "../../redux/redux-store";
 
 const LoginForm: React.FC<InjectedFormProps<LoginFormValuesType, LoginFormOwnPropsType> & LoginFormOwnPropsType> = ({
-                                                                                                                handleSubmit,
-                                                                                                                error
-                                                                                                            }): JSX.Element => {
+                                                                                                                        handleSubmit,
+                                                                                                                        error
+                                                                                                                    }): JSX.Element => {
 
     return (
         <form onSubmit={handleSubmit}>
-            <div>
-                <Field name={"email"} placeholder={"Email"} component={Input} validate={[required, maxLength30]}/>
-            </div>
-            <div>
-                <Field name={"password"} placeholder={"Password"} component={Input} validate={[required, maxLength30]}/>
-            </div>
-            <div className={style.check}>
-                <Field type={"checkbox"} name={"name"} placeholder={"placeholder"} component={Input}
-                       validate={[required, maxLength30]}/>
-                remember Me
-            </div>
-            {/* {createField("email", "Email", {Input}, [required, maxLength30])}*/}
-            {/*{createField("password", "Password", {Input}, [required, maxLength30])}*/}
-            {/* {createField("rememberMe", null, {Input}, [required, maxLength30], {type: "checkbox"}, "remember me")}*/}
+            {createField<LoginFormValuesTypeKeys>("email", "email", [required, maxLength30], Input, 'login')}
+            {createField<LoginFormValuesTypeKeys>("password", "password", [required], Input, 'password')}
+            {createField<LoginFormValuesTypeKeys>('checkbox', "rememberMe", [], Input, undefined, "remember me")}
+
             {error &&
             <div className={style.formSummaryError}>
                 {error}
-            </div>}
+            </div>
+            }
             <div>
                 <button>Log In</button>
             </div>
@@ -46,8 +37,8 @@ type LoginFormValuesType = {
     email: string,
     password: string,
     rememberMe: boolean
-    isAuth: boolean,
 }
+type LoginFormValuesTypeKeys = keyof LoginFormValuesType // получение ключей из LoginFormValuesType
 
 type LoginPropsType = {
     login: (email: string, password: string, rememberMe: boolean) => void
@@ -86,3 +77,4 @@ const mapStateToProps = (state: AppStateType): MapStateToProps => ({
 })
 
 export default connect(mapStateToProps, {login})(Login);
+

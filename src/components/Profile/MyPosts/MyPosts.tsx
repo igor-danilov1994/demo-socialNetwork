@@ -1,7 +1,7 @@
 import React from 'react';
 import s from './MyPosts.module.css';
-import Post from "./Post/Post";
-import {Field, reduxForm, SubmitHandler} from "redux-form";
+import {Post} from "./Post/Post";
+import {Field, reduxForm} from "redux-form";
 import {Textarea} from "../../Common/FormsControl/FormsControl";
 import {PostType} from "../../../typs/typs";
 
@@ -10,9 +10,9 @@ type MyPostsPropsType = {
     addPost: (text: string) => void
 }
 
-const MyPosts: React.FC<MyPostsPropsType> = React.memo(({posts, addPost,}): JSX.Element => {
+export const MyPosts: React.FC<MyPostsPropsType> = React.memo(({posts, addPost,}): JSX.Element => {
     let postElements = posts
-        .map(p => <Post message={p.massage} likesCount={p.likesCount}/>);
+        .map(p => <Post key={p.id} message={p.massage} likesCount={p.likesCount}/>);
 
     const onAddPost = (values: any): void => {
         debugger
@@ -50,5 +50,3 @@ const AddNewPostForm: React.FC<AddNewPostFormPropsType> = ({handleSubmit,}) => {
 }
 
 const AddNewPostFormRedux = reduxForm({form: 'ProfileAddNewPostForm'})(AddNewPostForm);
-
-export default MyPosts;

@@ -1,9 +1,9 @@
-import React, {Suspense} from 'react';
+import React from 'react';
 import './App.css';
 import Navbar from "./components/Navbar/Navbar";
-import News from "./components/News/News";
+import {News} from "./components/News/News";
 import Music from "./components/Music/Misic";
-import Settings from "./components/Settings/Settings";
+import {Settings} from "./components/Settings/Settings";
 import UsersContainer from "./components/Users/UsersContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import LoginPage from "./components/Login/Login";
