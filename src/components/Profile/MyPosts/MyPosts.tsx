@@ -1,7 +1,7 @@
 import React from 'react';
 import s from './MyPosts.module.css';
 import {Post} from "./Post/Post";
-import {Field, reduxForm} from "redux-form";
+import {Field, FormSubmitHandler, reduxForm, SubmitHandler} from "redux-form";
 import {Textarea} from "../../Common/FormsControl/FormsControl";
 import {PostType} from "../../../typs/typs";
 
@@ -11,11 +11,10 @@ type MyPostsPropsType = {
 }
 
 export const MyPosts: React.FC<MyPostsPropsType> = React.memo(({posts, addPost,}): JSX.Element => {
-    let postElements = posts
+    const postElements = posts
         .map(p => <Post key={p.id} message={p.massage} likesCount={p.likesCount}/>);
 
     const onAddPost = (values: any): void => {
-        debugger
         addPost(values.newPostText);
     }
 

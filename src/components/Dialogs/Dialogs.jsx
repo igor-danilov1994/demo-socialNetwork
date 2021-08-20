@@ -7,18 +7,17 @@ import {Textarea} from "../Common/FormsControl/FormsControl";
 import {maxlengthCreator, required} from "../../utils/validators/validation";
 
 
-const Dialogs = (props) => {
-    let state = props.dialogsPage;
+const Dialogs = ({dialogsPage,sendMessage})  => {
 
-    let dialogsElement = state.dialogs
+    const dialogsElement = dialogsPage.dialogs
         .map(d => <DialogItem name={d.name} key={d.id} id={d.id} avatar={d.avatar}/>);
 
-    let messagesElements = state.messages
+    const messagesElements = dialogsPage.messages
         .map(m => <Message key={m.id} message={m.message}/>);
 
 
-    let addNewMessage = (values) => {
-        props.sendMessage(values.newMessageBody);
+    const addNewMessage = (values) => {
+        sendMessage(values.newMessageBody);
     }
 
     return (
@@ -39,9 +38,9 @@ const Dialogs = (props) => {
 };
 const maxLength50 = maxlengthCreator(50);
 
-const AddMassageForm = (props) => {
+const AddMassageForm = ({handleSubmit}) => {
     return (
-        <form onSubmit={props.handleSubmit}>
+        <form onSubmit={handleSubmit}>
             <div>
                 <Field component={Textarea} name="newMessageBody"
                        placeholder="add you messages" validate={[required, maxLength50]}/>
