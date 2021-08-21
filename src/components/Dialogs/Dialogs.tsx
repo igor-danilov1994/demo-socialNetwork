@@ -3,14 +3,14 @@ import s from './Dialogs.module.css';
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
 import {Field, reduxForm} from "redux-form";
-import {createField, Input, Textarea} from "../Common/FormsControl/FormsControl";
+import {createField, Textarea} from "../Common/FormsControl/FormsControl";
 import {maxlengthCreator, required} from "../../utils/validators/validation";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
 import {actions} from "../../redux/dialogsReducer";
 
 
-const Dialogs = () => {
+export const Dialogs = () => {
     const dialogsPage = useSelector((state: AppStateType) => state.dialogsPage)
     const dispatch = useDispatch()
 
@@ -52,7 +52,6 @@ type DialogsFormValuesType = {
 type DialogsFormValuesTypeKeys = keyof DialogsFormValuesType
 
 const AddMassageForm = ({handleSubmit} ) => {
-
     return (
         <form onSubmit={handleSubmit}>
             <div>
@@ -68,5 +67,3 @@ const AddMassageForm = ({handleSubmit} ) => {
 }
 
 const AddMassageFormRedux = reduxForm({form: 'addDialogsMessages'})(AddMassageForm);
-
-export default Dialogs;
