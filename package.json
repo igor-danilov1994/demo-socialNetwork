@@ -16,9 +16,6 @@
     "@typescript-eslint/parser": "^4.29.2",
     "axios": "^0.21.0",
     "eslint-config-prettier": "^8.3.0",
-    "husky": "^7.0.1",
-    "lint-staged": "^11.1.2",
-    "prettier": "^2.3.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.1",
@@ -36,8 +33,15 @@
     "start": "npx react-app-rewired start",
     "build": "npx react-app-rewired build",
     "preanalyze": "npx react-app-rewired build",
+    "prepare": "husky install",
+    "postinstall": "husky install",
     "analyze": "BUNDLE_VISUALIZE=1 npx source-map-explorer 'build/static/js/*.js'",
     "format": "npx prettier --write \"src/**/*.{ts,tsx,json,scss}\""
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -55,8 +59,16 @@
     ]
   },
   "lint-staged": {
-    "src/**/*.{js,jsx,ts,tsx,json,scss}": ["npx prettier --write -c .prettierrc"],
-    "src/**/*.{js,jsx,ts,tsx}": ["npx eslint -c .eslintrc.js --fix --max-warnings=0"]
+    "src/**/*.{js,jsx,ts,tsx,json,scss}": [
+      "npx prettier --write -c .prettierrc"
+    ],
+    "src/**/*.{js,jsx,ts,tsx}": [
+      "npx eslint -c .eslintrc.js --fix --max-warnings=0"
+    ]
+  },
+  "devDependencies": {
+    "husky": "^7.0.1",
+    "lint-staged": "^11.1.2",
+    "prettier": "^2.3.2"
   }
-
 }
