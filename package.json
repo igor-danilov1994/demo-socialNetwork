@@ -55,8 +55,10 @@
     ]
   },
   "lint-staged": {
-    "src/**/*.{js,jsx,ts,tsx,json,scss}": ["npx prettier --write -c .prettierrc"],
-    "src/**/*.{js,jsx,ts,tsx}": ["npx eslint -c .eslintrc.js --fix --max-warnings=0"]
+    "*.{js, jsx, ts, tsx}": [
+      "node_modules/.bin/eslint --max-warning=0",
+      "prettier --write",
+      "git add"
+    ]
   }
-
 }
