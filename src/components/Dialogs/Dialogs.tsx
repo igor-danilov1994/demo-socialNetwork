@@ -21,7 +21,6 @@ export const Dialogs = () => {
     const messagesElements = dialogsPage.messages
         .map(m => <Message key={m.id} message={m.message}/>);
 
-
     const addNewMessage = (values: { newMessageBody: string }) => {
         dispatch(actions.sendMessage(values.newMessageBody))
     }
