@@ -39,6 +39,11 @@
     "analyze": "BUNDLE_VISUALIZE=1 npx source-map-explorer 'build/static/js/*.js'",
     "format": "npx prettier --write \"src/**/*.{ts,tsx,json,scss}\""
   },
+  "husky": {
+    "hooks": {
+      "pre-push": "npx lint-staged"
+    }
+  },
   "eslintConfig": {
     "extends": "react-app"
   },
