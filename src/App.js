@@ -4,9 +4,9 @@ import Navbar from "./components/Navbar/Navbar";
 import {News} from "./components/News/News";
 import Music from "./components/Music/Misic";
 import {Settings} from "./components/Settings/Settings";
-import UsersContainer from "./components/Users/UsersContainer";
+import {UsersPage} from "./components/Users/UsersPage";
 import HeaderContainer from "./components/Header/HeaderContainer";
-import LoginPage from "./components/Login/Login";
+import {Login} from "./components/Login/Login";
 import {initializeApp} from "./redux/appReducer";
 import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
@@ -41,11 +41,11 @@ class App extends React.Component {
                     <Route path='/profile/:userId?'
                            render= {withSuspense(ProfileContainer)}
                     />
-                    <Route path='/users' render={() => < UsersContainer title={"Hi samurai"}/>}/>
+                    <Route path='/users' render={() => <UsersPage />}/>
                     <Route path='/news' render={() => <News/>}/>
                     <Route path='/music' render={() => <Music/>}/>
                     <Route path='/settings' render={() => <Settings/>}/>
-                    <Route path='/Login' render={() => <LoginPage/>}/>
+                    <Route path='/Login' render={() => <Login/>}/>
                 </div>
             </div>
         );
