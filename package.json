@@ -41,7 +41,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-push": "npx lint-staged"
+      "pre-push": "lint-staged"
     }
   },
   "eslintConfig": {
