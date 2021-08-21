@@ -13,7 +13,12 @@
     "@types/react-redux": "^7.1.16",
     "@types/react-router-dom": "^5.1.7",
     "@types/redux-form": "^8.3.1",
+    "@typescript-eslint/parser": "^4.29.2",
     "axios": "^0.21.0",
+    "eslint-config-prettier": "^8.3.0",
+    "husky": "^7.0.1",
+    "lint-staged": "^11.1.2",
+    "prettier": "^2.3.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.1",
@@ -24,13 +29,15 @@
     "redux-thunk": "^2.3.0",
     "reselect": "^4.0.0",
     "save": "^2.4.0",
-    "typescript": "^4.2.4"
+    "typescript": "^4.2.4",
+    "typescript-eslint": "0.0.1-alpha.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "precommit": "lint-staged"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -46,5 +53,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx,json,scss}": ["npx prettier --write -c .prettierrc"],
+    "src/**/*.{js,jsx,ts,tsx}": ["npx eslint -c .eslintrc.js --fix --max-warnings=0"]
   }
+
 }
