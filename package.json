@@ -26,10 +26,10 @@
     "save": "^2.4.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
+    "start": "npx react-app-rewired start",
+    "build": "npx react-app-rewired build",
+    "preanalyze": "npx react-app-rewired build",
+    "analyze": "BUNDLE_VISUALIZE=1 npx source-map-explorer 'build/static/js/*.js'",
     "format": "npx prettier --write \"src/**/*.{ts,tsx,json,scss}\""
   },
   "eslintConfig": {
@@ -56,6 +56,8 @@
     "eslint-plugin-react": "^7.24.0",
     "husky": "^7.0.1",
     "lint-staged": "^11.1.2",
+    "node-sass": "^6.0.1",
+    "prettier": "^2.3.2",
     "react-app-rewired": "^2.1.8",
     "typescript": "^4.3.5"
   }
