@@ -8,6 +8,12 @@ import style from "../Common/FormsControl/FormControls.module.css"
 import {login} from "../../redux/authReducer";
 import {AppStateType} from "../../redux/redux-store";
 
+
+const user = ""
+const final = user === 2
+const sd = 99
+console.log(final)
+
 const LoginForm: React.FC<InjectedFormProps<LoginFormValuesType>> = ({
                                                                          handleSubmit,
                                                                          error
