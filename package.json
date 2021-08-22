@@ -36,11 +36,13 @@
     "prepare": "husky install",
     "postinstall": "husky install",
     "analyze": "BUNDLE_VISUALIZE=1 npx source-map-explorer 'build/static/js/*.js'",
+    "precommit": "lint-staged",
+    "ng": "ng",
     "format": "npx prettier --write \"src/**/*.{ts,tsx,json,scss}\""
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npx lint-staged"
+      "pre-commit": "lint-staged"
     }
   },
   "eslintConfig": {
@@ -59,11 +61,10 @@
     ]
   },
   "lint-staged": {
-    "src/**/*.{js,jsx,ts,tsx,json,scss}": [
-      "npx prettier --write -c .prettierrc"
-    ],
-    "src/**/*.{js,jsx,ts,tsx}": [
-      "npx eslint -c .eslintrc.js --fix --max-warnings=0"
+    "*.{ts,js,sccs,json}": [
+      "ng lint app-name --fix",
+      "./node_modules/.bin/prettier --write",
+      "git add"
     ]
   },
   "devDependencies": {
