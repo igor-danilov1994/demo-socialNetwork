@@ -1,6 +1,5 @@
 {
   "hooks": {
-    "pre-commit": "npx lint-staged",
-  "tsc": "noEmit"
+    "pre-commit": "tsc --noEmit && lint-staged"
   }
 }
